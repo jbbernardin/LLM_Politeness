@@ -2,6 +2,7 @@ import os
 import math
 import openai
 import json
+from tqdm import tqdm
 
 # Function to calculate perplexity from log probabilities
 def calculate_perplexity(log_probs):
@@ -17,7 +18,7 @@ client = openai.OpenAI(
 )
 
 # Read the JSON file
-with open('politeness.json', 'r') as file:
+with open('filtered_politeness.json', 'r') as file:
     questions_data = json.load(file)
 
 # Prepare the output data
@@ -25,7 +26,7 @@ output_data = []
 
 try:
     # Process each question
-    for entry in questions_data:
+    for entry in tqdm(questions_data, desc="Processing questions"):
         data_point = {}
         for key in ["question", "polite_question", "impolite_question"]:
             question = entry[key]
