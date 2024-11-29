@@ -3,7 +3,7 @@ import openai
 import os
 from tqdm import tqdm
 
-input_file_path = "politeness.json"
+input_file_path = "filtered_politeness.json.json"
 output_file_path = "politeness_with_answers.json"
 
 # Load the dataset
@@ -23,12 +23,13 @@ def get_answer(context, question):
                 "role": "system",
                 "content": (
                     "You are a helpful assistant. Please provide a concise and accurate "
-                    "answer to the following question."
+                    "answer to the following question. Keep your answer under 20 words."
                 ),
             },
             {"role": "user", "content": f"Context: {context}\nQuestion: {question}"},
         ],
         temperature=0,
+        max_tokens=25,  # Adjust max_tokens to limit the length of the response
     )
     return response["choices"][0]["message"]["content"].strip()
 
