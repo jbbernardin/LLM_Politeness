@@ -42,11 +42,25 @@ def normalize_answer(s):
     return white_space_fix(remove_articles(remove_punctuation(lowercase(s))))
 
 # Load the JSON data
-with open('politeness_with_answers.json', 'r') as file:
+with open('4o-mini_answers.json', 'r') as file:
     data = json.load(file)
 
+answer_types = [
+    "question_answer", 
+    "neutral_answer_1", 
+    "neutral_answer_2", 
+    "neutral_answer_3", 
+    "polite_answer_1",
+    "polite_answer_2",
+    "polite_answer_3",
+    "impolite_answer_1",
+    "impolite_answer_2",
+    "impolite_answer_3"
+]
+
+
 # Prepare CSV file
-with open('evaluation_results.csv', 'w', newline='') as csvfile:
+with open('4o-mini_evaluation_results.csv', 'w', newline='') as csvfile:
     fieldnames = ['id', 'question', 'answer_type', 'EM', 'F1', 'contains']
     writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
     writer.writeheader()
@@ -56,9 +70,7 @@ with open('evaluation_results.csv', 'w', newline='') as csvfile:
         q_id = entry.get('id', '')
         question = entry.get('question', '')
         ground_truth = entry.get('ground_truth_answer', '')
-
-        # List of answer types to evaluate
-        answer_types = ['question_answer', 'impolite_question_answer', 'polite_question_answer']
+        print(ground_truth)
 
         for ans_type in answer_types:
             prediction = entry.get(ans_type, '')
@@ -66,7 +78,7 @@ with open('evaluation_results.csv', 'w', newline='') as csvfile:
                 em = exact_match(prediction, ground_truth)
                 f1 = f1_score(prediction, ground_truth)
                 contains = is_contained(prediction, ground_truth)
-                question_type = "_".join(ans_type.split('_')[:-1])
+                question_type = "question" if "question_answer" == ans_type else ans_type.replace("answer", "question")
                 writer.writerow({
                     'id': q_id,
                     'answer_type': ans_type,
