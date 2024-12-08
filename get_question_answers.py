@@ -3,8 +3,8 @@ import openai
 import os
 from tqdm import tqdm
 
-input_file_path = "filtered_politeness.json.json"
-output_file_path = "politeness_with_answers.json"
+input_file_path = "filtered_politeness_modified.json"
+output_file_path = "4o-mini_answers.json"
 
 # Load the dataset
 with open(input_file_path, "r") as f:
@@ -39,13 +39,17 @@ try:
         context = entry["context"]
         ground_truth_answer = entry["answers"]["text"][0]
 
-        # Get answers for each question type
+        # get baseline question answer
         entry["question_answer"] = get_answer(context, entry["question"])
-        entry["polite_question_answer"] = get_answer(context, entry["polite_question"])
-        entry["impolite_question_answer"] = get_answer(context, entry["impolite_question"])
 
         # Add the ground truth answer
         entry["ground_truth_answer"] = ground_truth_answer
+
+        # Get answers for each question type
+        for i in range(1, 4):
+            entry[f"neutral_answer_{i}"] = get_answer(context, entry[f"neutral_question_{i}"])
+            entry[f"polite_answer_{i}"] = get_answer(context, entry[f"polite_question_{i}"])
+            entry[f"impolite_answer_{i}"] = get_answer(context, entry[f"impolite_question_{i}"])
 
 except Exception as e:
     print(f"Error processing entry {idx}: {e}")
