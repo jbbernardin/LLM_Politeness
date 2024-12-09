@@ -1,0 +1,16 @@
+{
+    "model": "falcon",
+    "overall_accuracy": 50.97305389221557,
+    "per_question_type_accuracy": {
+        "question": 60.62874251497006,
+        "neutral_question_1": 54.041916167664674,
+        "neutral_question_2": 50.74850299401198,
+        "neutral_question_3": 54.191616766467064,
+        "polite_question_1": 58.83233532934131,
+        "polite_question_2": 53.59281437125748,
+        "polite_question_3": 50.59880239520959,
+        "impolite_question_1": 46.25748502994012,
+        "impolite_question_2": 40.7185628742515,
+        "impolite_question_3": 40.119760479041915
+    }
+}

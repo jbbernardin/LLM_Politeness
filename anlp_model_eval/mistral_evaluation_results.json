@@ -1,0 +1,16 @@
+{
+    "model": "mistral",
+    "overall_accuracy": 69.73053892215569,
+    "per_question_type_accuracy": {
+        "question": 71.7065868263473,
+        "neutral_question_1": 68.41317365269461,
+        "neutral_question_2": 66.91616766467065,
+        "neutral_question_3": 69.46107784431138,
+        "polite_question_1": 78.1437125748503,
+        "polite_question_2": 75.1497005988024,
+        "polite_question_3": 76.19760479041916,
+        "impolite_question_1": 67.06586826347305,
+        "impolite_question_2": 61.97604790419161,
+        "impolite_question_3": 62.27544910179641
+    }
+}
