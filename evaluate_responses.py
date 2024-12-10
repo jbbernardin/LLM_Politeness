@@ -87,5 +87,7 @@ with open('4o-mini_evaluation_results.csv', 'w', newline='') as csvfile:
                     'contains': contains,
                     'question': entry[question_type]
                 })
+            else:
+                print(f"Missing prediction for {q_id} - {ans_type}")
 
 print("Evaluation completed. Results saved to evaluation_results.csv")
